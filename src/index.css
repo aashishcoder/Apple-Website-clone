@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+  width: 100dvw;
+  overflow-x: hidden;
+  height: 100%;
+  background: #000;
+  border-color: #3b3b3b;
+  user-select: none;
+}
+
+canvas {
+  touch-action: none;
+}
+
+.screen-max-width {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  position: relative;
+  max-width: 1120px;
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center
+  }
+  
+  .nav-height {
+    @apply h-[calc(100vh-60px)] relative;
+  }
+  .ribbon {
+    @apply absolute top-0 left-0 w-full z-10; /* Ensure the banner is on top */
+  }
+  
+  .banner {
+    @apply absolute top-0 left-0 w-full z-10;
+  }
+
+  .hero-image-container {
+    opacity: 0;
+    transform: translateY(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+  }
+  
+  .hero-image {
+    @apply w-11/12 h-64 object-cover object-center z-10 ;
+  }
+
+  @media (max-width: 760px) {
+    .hero-video {
+      @apply w-full h-full object-cover object-center;
+      margin-top: 100px; 
+      /* Adjust this value as needed */
+    }
+
+    .butn{
+      margin-top: 9vh;
+    }
+
+    .hero-image{
+      margin-top: -60px;
+    }
+  }
+  .butn {
+    margin-top: 15vh;
+  }
+
+  .btn {
+    @apply px-5 py-2 rounded-3xl bg-blue my-5 hover:bg-transparent border border-transparent hover:border hover:text-blue hover:border-blue
+  }
+
+  .color-container {
+    @apply flex items-center justify-center px-4 py-4 rounded-full bg-gray-300 backdrop-blur
+  }
+
+  .size-btn-container {
+    @apply flex items-center justify-center p-1 rounded-full bg-gray-300 backdrop-blur ml-3 gap-1
+  }
+
+  .size-btn {
+    @apply w-10 h-10 text-sm flex justify-center items-center bg-white text-black rounded-full transition-all
+  }
+
+  .common-padding {
+    @apply sm:py-32 py-20 sm:px-10 px-5
+  }
+
+  .section-heading {
+    @apply text-gray lg:text-6xl md:text-5xl text-3xl lg:mb-0 mb-5 font-medium opacity-0 translate-y-20
+  }
+
+  .feature-text {
+    @apply text-gray max-w-md text-lg md:text-xl font-semibold opacity-0 translate-y-[100px]
+  }
+
+  .feature-text-container {
+    @apply w-full flex-center flex-col md:flex-row mt-10 md:mt-16 gap-5
+  }
+
+  .feature-video {
+    @apply w-full h-full object-cover object-center scale-150 opacity-0
+  }
+
+  .feature-video-container {
+    @apply w-full flex flex-col md:flex-row gap-5 items-center
+  }
+
+  .link {
+    @apply text-blue hover:underline cursor-pointer flex items-center text-xl opacity-0 translate-y-20
+  }
+
+  .control-btn {
+    @apply ml-4 p-4 rounded-full bg-gray-300 backdrop-blur flex-center
+  }
+
+  .hero-title {
+    @apply text-center font-semibold text-3xl text-white opacity-0 max-md:mb-10 z-10
+  }
+
+  .hiw-title {
+    @apply text-4xl md:text-7xl font-semibold text-center
+  }
+
+  .hiw-subtitle {
+    @apply text-gray font-semibold text-xl md:text-2xl py-10 text-center
+  }
+
+  .hiw-video {
+    @apply absolute w-[95%] h-[90%] rounded-[56px] overflow-hidden
+  }
+
+  .hiw-text-container {
+    @apply flex md:flex-row flex-col justify-between items-start gap-24
+  }
+
+  .hiw-text {
+    @apply text-gray text-xl font-normal md:font-semibold
+  }
+
+  .hiw-bigtext {
+    @apply text-white text-3xl md:text-5xl font-normal md:font-semibold my-2
+  }
+
+  .video-carousel_container {
+    @apply relative sm:w-[70vw] w-[88vw] md:h-[70vh] sm:h-[50vh] h-[35vh]
+  }
+
+  .g_fadeIn {
+    @apply opacity-0 translate-y-[100px]
+  }
+  .ribbon {
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.4285914286;
+    font-weight: 400;
+    letter-spacing: -0.016em;
+    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+    --ribbon-link-color: rgb(0, 102, 204);
+    --ribbon-focus-color: #0071e3;
+    --ribbon-text-color: rgb(255, 255, 255);
+    --ribbon-background-color: rgb(46, 46, 46);
+    --ribbon-content-padding-top: 16px;
+    --ribbon-content-padding-bottom: 20px;
+    --ribbon-content-width: 83.33333%;
+    --ribbon-content-minimum-width: 320px;
+    width: var(--ribbon-width);
+    padding-top: var(--ribbon-padding-top);
+    padding-bottom: var(--ribbon-padding-bottom);
+}
+  .ribbon-content-wrapper {
+    background-color: var(--ribbon-background-color);
+    backdrop-filter: blur(var(--ribbon-background-blur));
+    padding-top: var(--ribbon-content-padding-top);
+    padding-bottom: var(--ribbon-content-padding-bottom);
+    border-radius: var(--ribbon-border-radius);
+    text-align: center;
+}
+
+.ribbon-content {
+  color: var(--ribbon-text-color);
+}
+ .welcome-headline {
+  position: relative;
+
+}
+#banner {
+  @apply absolute top-0 left-0 w-full z-10; /* Ensure the banner is on top */
+}
+
+#cta {
+  @apply relative z-10; /* Ensure the CTA is on top */
+}
+}
