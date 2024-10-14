@@ -11,7 +11,8 @@ const VideoCarousel = () => {
   const videoRef = useRef([]);
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
-
+  //add
+  const [currentTime, setCurrentTime] = useState(0);
   // video and indicator
   const [video, setVideo] = useState({
     isEnd: false,
@@ -21,14 +22,27 @@ const VideoCarousel = () => {
     isPlaying: false,
   });
 
-// dot handler 
+  //Current video pause
+  const pauseCurrentVideo = () => {
+    if (videoRef.current[video.videoId]) {
+      videoRef.current[video.videoId].pause();
+    }
+  };
+
+  // dot handler
   const handleDotClick = (i) => {
-   setVideo((prev) => ({
-    ...prev,
-    videoId: i,
-    isPlaying: true, // Set to true to play the video immediately
-    startPlay: true, // Ensure the video starts playing
-   }));
+    if (videoRef.current[video.videoId]) {
+      videoRef.current[video.videoId].pause(); // Pause the currently playing video
+    }
+    const currentTime = videoRef.current[video.videoId].currentTime;
+    
+    setVideo((prev) => ({
+      ...prev,
+      videoId: i,
+      isPlaying: true, // Set to true to play the video immediately
+      startPlay: true, // Ensure the video starts playing
+    }));
+    setCurrentTime(currentTime);
   };
 
   const [loadedData, setLoadedData] = useState([]);
@@ -122,18 +136,32 @@ const VideoCarousel = () => {
         // remove the ticker when the video is paused (progress bar is stopped)
         gsap.ticker.remove(animUpdate);
       }
+      return () => {
+        gsap.ticker.remove(animUpdate);
+      };
     }
   }, [videoId, startPlay]);
 
   useEffect(() => {
     if (loadedData.length > 5) {
-      if (!isPlaying) {
-        videoRef.current[videoId].pause();
-      } else {
-        startPlay && videoRef.current[videoId].play();
+      if (videoRef.current[video.videoId]) {
+        if (video.isPlaying) {
+          videoRef.current[video.videoId].play();
+        } else {
+          videoRef.current[video.videoId].pause();
+        }
       }
     }
-  }, [startPlay, videoId, isPlaying, loadedData]);
+  }, [video.videoId, video.isPlaying, loadedData]);
+  // useEffect(() => {
+  //   if (loadedData.length > 5) {
+  //     if (!isPlaying) {
+  //       videoRef.current[videoId].pause();
+  //     } else {
+  //       startPlay && videoRef.current[videoId].play();
+  //     }
+  //   }
+  // }, [startPlay, videoId, isPlaying, loadedData]);
 
   // vd id is the id for every video until id becomes number 3
   const handleProcess = (type, i) => {
@@ -187,7 +215,10 @@ const VideoCarousel = () => {
                   onPlay={() =>
                     setVideo((pre) => ({ ...pre, isPlaying: true }))
                   }
-                  onLoadedMetadata={(e) => handleLoadedMetaData(i, e)}
+                  onLoadedMetadata={(e) => {
+                    handleLoadedMetaData(i, e);
+                    videoRef.current[i].seekTo(currentTime); // Seek to the correct time
+                  }}
                 >
                   <source src={list.video} type="video/mp4" />
                 </video>
